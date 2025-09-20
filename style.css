@@ -1,0 +1,88 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(to top, #c1f0a0, #a6dff5);
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/* Flor */
+.flower {
+  position: relative;
+  width: 300px;
+  height: 450px;
+  animation: sway 5s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+  from { transform: rotate(-2deg); }
+  to { transform: rotate(2deg); }
+}
+
+/* Pétalos */
+.petals {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+}
+
+.petal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 140px;
+  background: radial-gradient(circle at 30% 30%, #ffe97f, #ffcc00);
+  border-radius: 50% 50% 40% 40%;
+  transform-origin: center -30px;
+  opacity: 0;
+  box-shadow: inset -3px -3px 6px rgba(0,0,0,0.2);
+  transition: opacity 0s ease-in;
+}
+
+/* Centro */
+.center {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 30% 30%, #a87923, #8a5417);
+  border-radius: 50%;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+}
+
+/* Tallo */
+.stem {
+  position:absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 340px;
+  background: linear-gradient(to bottom, #3ca341, #2b6d2e);
+  border-radius: 15px;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+
+/* Mensaje */
+.message {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #4a2c0a;
+  text-shadow: 1px 1px 3px #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
