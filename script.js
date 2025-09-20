@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const leaves = document.querySelectorAll(".leaf");
   const message = document.querySelector(".message");
 
-  let delay = 100;
+  let delay = 200;
 
   // Aparecen los pétalos uno a uno
   petals.forEach((petal, index) => {
