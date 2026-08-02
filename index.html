@@ -16,31 +16,54 @@
     <div class="particles" id="particles"></div>
   </div>
 
-  <div class="butterflies" id="butterflies" aria-hidden="true"></div>
+  <canvas id="butterflies" class="butterflies-canvas" aria-hidden="true"></canvas>
 
   <main class="scene">
     <p class="dedication">Para ti</p>
 
     <div class="gift">
+      <!-- Flat faceless portrait: style like the illustration, redhead traits -->
       <div class="portrait" aria-hidden="true">
-        <div class="portrait-hair hair-back"></div>
-        <div class="portrait-neck"></div>
-        <div class="portrait-shoulders"></div>
-        <div class="portrait-top">
-          <div class="top-trim"></div>
-        </div>
-        <div class="portrait-face">
-          <div class="blush blush-left"></div>
-          <div class="blush blush-right"></div>
-          <div class="freckles"></div>
-        </div>
-        <div class="portrait-hair hair-front">
-          <span class="strand s1"></span>
-          <span class="strand s2"></span>
-          <span class="strand s3"></span>
-          <span class="strand s4"></span>
-          <span class="strand s5"></span>
-        </div>
+        <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" class="portrait-svg">
+          <!-- Hair back -->
+          <ellipse cx="100" cy="128" rx="78" ry="100" fill="#9a2f18"/>
+          <path d="M28 90 C20 140 22 200 40 235 L70 220 C55 180 48 130 55 95 Z" fill="#7a2412"/>
+          <path d="M172 90 C180 140 178 200 160 235 L130 220 C145 180 152 130 145 95 Z" fill="#7a2412"/>
+
+          <!-- Shoulders / top -->
+          <path d="M35 195 Q100 175 165 195 L175 260 L25 260 Z" fill="#f7f4f0"/>
+          <path d="M55 200 Q100 185 145 200" fill="none" stroke="#e8e0d8" stroke-width="3" stroke-linecap="round"/>
+          <!-- Pearl trim -->
+          <circle cx="72" cy="198" r="2.2" fill="#fff"/>
+          <circle cx="82" cy="194" r="2.2" fill="#fff"/>
+          <circle cx="92" cy="192" r="2.2" fill="#fff"/>
+          <circle cx="100" cy="191" r="2.2" fill="#fff"/>
+          <circle cx="108" cy="192" r="2.2" fill="#fff"/>
+          <circle cx="118" cy="194" r="2.2" fill="#fff"/>
+          <circle cx="128" cy="198" r="2.2" fill="#fff"/>
+
+          <!-- Neck -->
+          <rect x="88" y="155" width="24" height="28" rx="8" fill="#f0c9b5"/>
+
+          <!-- Face (featureless) -->
+          <ellipse cx="100" cy="105" rx="42" ry="50" fill="#f3d0bd"/>
+
+          <!-- Soft cheek tint only — no features -->
+          <ellipse cx="78" cy="118" rx="8" ry="5" fill="#e8a898" opacity="0.35"/>
+          <ellipse cx="122" cy="118" rx="8" ry="5" fill="#e8a898" opacity="0.35"/>
+
+          <!-- Hair front / bangs — wavy copper -->
+          <path d="M55 70 C60 40 85 28 100 30 C115 28 140 40 145 70
+                   C148 55 130 48 100 52 C70 48 52 55 55 70 Z" fill="#c44522"/>
+          <path d="M48 75 C42 110 38 150 45 195 C55 175 62 140 65 100 C66 85 58 78 48 75 Z" fill="#d4552e"/>
+          <path d="M152 75 C158 110 162 150 155 195 C145 175 138 140 135 100 C134 85 142 78 152 75 Z" fill="#d4552e"/>
+          <path d="M62 55 C70 48 85 58 88 78 C75 70 65 65 62 55 Z" fill="#e06a3a"/>
+          <path d="M138 55 C130 48 115 58 112 78 C125 70 135 65 138 55 Z" fill="#e06a3a"/>
+
+          <!-- Front shoulder locks -->
+          <path d="M58 100 C50 145 52 185 68 215 C72 190 74 150 78 115 C75 105 65 100 58 100 Z" fill="#b83a1c"/>
+          <path d="M142 100 C150 145 148 185 132 215 C128 190 126 150 122 115 C125 105 135 100 142 100 Z" fill="#b83a1c"/>
+        </svg>
       </div>
 
       <div class="flower" id="flower" aria-hidden="true" title="Tócame">
