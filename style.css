@@ -11,11 +11,15 @@
   --gold-mid: #f0b429;
   --gold-deep: #e09a12;
   --gold-tip: #ffd86b;
-  --center-dark: #3d2410;
   --stem: #3d8f3a;
   --stem-deep: #1f5c28;
   --ink: #3a2a12;
   --ink-soft: #5c4320;
+  --hair: #c4492a;
+  --hair-deep: #8a2a14;
+  --hair-light: #e06a3a;
+  --skin: #f3d4c4;
+  --skin-deep: #e8bba8;
 }
 
 html,
@@ -112,6 +116,111 @@ body {
   }
 }
 
+/* ——— Butterflies ——— */
+.butterflies {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  transition: transform 0.4s ease-out;
+}
+
+.butterfly {
+  position: absolute;
+  top: var(--y);
+  left: -10%;
+  width: var(--size);
+  height: calc(var(--size) * 0.7);
+  transform: scale(var(--scale));
+  animation: fly-across var(--dur) linear infinite;
+  animation-delay: var(--delay);
+  filter: drop-shadow(0 2px 4px rgba(80, 30, 120, 0.25));
+}
+
+.bf-body {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  width: 14%;
+  height: 60%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #2a1538, #4a2060);
+  border-radius: 40%;
+  z-index: 2;
+}
+
+.bf-wing {
+  position: absolute;
+  top: 8%;
+  width: 48%;
+  height: 70%;
+  background:
+    radial-gradient(ellipse at 40% 40%,
+      hsl(var(--hue), 70%, 72%) 0%,
+      hsl(var(--hue), 65%, 48%) 55%,
+      hsl(calc(var(--hue) - 20), 60%, 32%) 100%);
+  border-radius: 80% 60% 70% 40%;
+  transform-origin: center right;
+  opacity: 0.92;
+}
+
+.wing-left {
+  left: 2%;
+  transform-origin: right center;
+  animation: flap-left 0.28s ease-in-out infinite alternate;
+}
+
+.wing-right {
+  right: 2%;
+  transform-origin: left center;
+  border-radius: 60% 80% 40% 70%;
+  animation: flap-right 0.28s ease-in-out infinite alternate;
+}
+
+.butterfly:nth-child(odd) .wing-left,
+.butterfly:nth-child(odd) .wing-right {
+  animation-duration: 0.22s;
+}
+
+.butterfly:nth-child(3n) .wing-left,
+.butterfly:nth-child(3n) .wing-right {
+  animation-duration: 0.34s;
+}
+
+@keyframes flap-left {
+  from { transform: scaleX(1) rotate(-6deg); }
+  to { transform: scaleX(0.35) rotate(8deg); }
+}
+
+@keyframes flap-right {
+  from { transform: scaleX(1) rotate(6deg); }
+  to { transform: scaleX(0.35) rotate(-8deg); }
+}
+
+@keyframes fly-across {
+  0% {
+    left: -12%;
+    transform: scale(var(--scale)) translateY(0) rotate(-8deg);
+    opacity: 0;
+  }
+  5% { opacity: 0.95; }
+  25% {
+    transform: scale(var(--scale)) translateY(calc(var(--wave) * -1)) rotate(4deg);
+  }
+  50% {
+    transform: scale(var(--scale)) translateY(var(--wave)) rotate(-3deg);
+  }
+  75% {
+    transform: scale(var(--scale)) translateY(calc(var(--wave) * -0.6)) rotate(6deg);
+  }
+  95% { opacity: 0.95; }
+  100% {
+    left: 112%;
+    transform: scale(var(--scale)) translateY(0) rotate(10deg);
+    opacity: 0;
+  }
+}
+
 /* ——— Scene ——— */
 .scene {
   position: relative;
@@ -122,13 +231,13 @@ body {
   justify-content: center;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 1.5rem 1.25rem 2rem;
+  padding: 1.25rem 1.25rem 1.75rem;
   text-align: center;
 }
 
 .dedication {
   font-family: "Great Vibes", cursive;
-  font-size: clamp(2.8rem, 10vw, 4.5rem);
+  font-size: clamp(2.6rem, 9vw, 4.2rem);
   line-height: 1;
   color: var(--ink);
   letter-spacing: 0.02em;
@@ -136,20 +245,244 @@ body {
   opacity: 0;
   transform: translateY(12px);
   animation: reveal 1.2s ease forwards 0.3s;
+  z-index: 2;
 }
+
+.gift {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.5rem, 3vw, 1.75rem);
+  margin: 0.6rem 0 1rem;
+  width: 100%;
+  max-width: 640px;
+}
+
+/* ——— Faceless portrait ——— */
+.portrait {
+  position: relative;
+  width: min(150px, 32vw);
+  height: min(210px, 42vw);
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateY(20px) scale(0.94);
+  filter: drop-shadow(0 12px 20px rgba(60, 40, 30, 0.2));
+}
+
+.portrait.visible {
+  animation: reveal-portrait 1.3s ease forwards;
+}
+
+@keyframes reveal-portrait {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.portrait-hair.hair-back {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: 108%;
+  height: 88%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse 40% 30% at 30% 20%, var(--hair-light), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 70% 25%, var(--hair), transparent 55%),
+    linear-gradient(180deg, var(--hair-deep) 0%, var(--hair) 35%, var(--hair-deep) 100%);
+  border-radius: 48% 48% 42% 42% / 28% 28% 55% 55%;
+  z-index: 1;
+}
+
+.portrait-neck {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  width: 22%;
+  height: 14%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--skin), var(--skin-deep));
+  border-radius: 0 0 30% 30%;
+  z-index: 3;
+}
+
+.portrait-shoulders {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  width: 92%;
+  height: 28%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #faf8f5 0%, #efeae4 100%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 20% 20%;
+  z-index: 2;
+  box-shadow: inset 0 8px 12px rgba(255, 255, 255, 0.5);
+}
+
+.portrait-top {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  width: 88%;
+  height: 36%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #ffffff 0%, #f2ece6 100%);
+  clip-path: polygon(8% 18%, 50% 0%, 92% 18%, 100% 100%, 0% 100%);
+  z-index: 4;
+}
+
+.top-trim {
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  width: 70%;
+  height: 10px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle, #fff 1.5px, transparent 2px) 0 0 / 8px 8px,
+    linear-gradient(180deg, rgba(230, 220, 210, 0.9), transparent);
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.portrait-face {
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  width: 52%;
+  height: 42%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at 50% 40%, #f7ddd0 0%, var(--skin) 55%, var(--skin-deep) 100%);
+  border-radius: 48% 48% 45% 45% / 42% 42% 52% 52%;
+  z-index: 5;
+  box-shadow: inset 0 -6px 12px rgba(200, 140, 120, 0.15);
+}
+
+.blush {
+  position: absolute;
+  top: 52%;
+  width: 22%;
+  height: 12%;
+  background: radial-gradient(ellipse, rgba(232, 140, 130, 0.35), transparent 70%);
+  border-radius: 50%;
+}
+
+.blush-left { left: 12%; }
+.blush-right { right: 12%; }
+
+.freckles {
+  position: absolute;
+  inset: 38% 22% 40% 22%;
+  background-image:
+    radial-gradient(circle, rgba(180, 110, 80, 0.35) 0.7px, transparent 1px),
+    radial-gradient(circle, rgba(180, 110, 80, 0.28) 0.6px, transparent 0.9px);
+  background-size: 7px 8px, 9px 10px;
+  background-position: 0 0, 3px 4px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.portrait-hair.hair-front {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.strand {
+  position: absolute;
+  top: 10%;
+  width: 22%;
+  height: 72%;
+  background: linear-gradient(
+    180deg,
+    var(--hair-light) 0%,
+    var(--hair) 40%,
+    var(--hair-deep) 100%
+  );
+  border-radius: 60% 40% 55% 45%;
+  opacity: 0.95;
+  animation: hair-drift 5s ease-in-out infinite alternate;
+}
+
+.strand.s1 {
+  left: 2%;
+  transform: rotate(8deg);
+  height: 78%;
+  animation-delay: 0s;
+}
+
+.strand.s2 {
+  left: 14%;
+  width: 18%;
+  height: 55%;
+  top: 8%;
+  border-radius: 50% 60% 40% 70%;
+  transform: rotate(18deg);
+  animation-delay: 0.4s;
+}
+
+.strand.s3 {
+  right: 2%;
+  left: auto;
+  transform: rotate(-10deg);
+  height: 80%;
+  animation-delay: 0.2s;
+}
+
+.strand.s4 {
+  right: 14%;
+  left: auto;
+  width: 18%;
+  height: 58%;
+  top: 8%;
+  transform: rotate(-20deg);
+  animation-delay: 0.6s;
+}
+
+.strand.s5 {
+  left: 50%;
+  width: 28%;
+  height: 22%;
+  top: 6%;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 40% 40%;
+  background: linear-gradient(180deg, var(--hair-light), var(--hair));
+  animation: none;
+  box-shadow: 0 4px 8px rgba(100, 30, 10, 0.15);
+}
+
+@keyframes hair-drift {
+  from { transform: rotate(var(--r, 8deg)) translateX(0); }
+  to { transform: rotate(calc(var(--r, 8deg) + 3deg)) translateX(2px); }
+}
+
+.strand.s1 { --r: 8deg; }
+.strand.s2 { --r: 18deg; }
+.strand.s3 { --r: -10deg; }
+.strand.s4 { --r: -20deg; }
 
 /* ——— Flower ——— */
 .flower {
   position: relative;
-  width: min(300px, 78vw);
-  height: min(400px, 58vh);
-  margin: 0.5rem 0 1.1rem;
+  width: min(260px, 58vw);
+  height: min(340px, 48vh);
+  margin: 0;
   opacity: 0;
   transform-origin: 50% 100%;
+  cursor: pointer;
   animation:
     flower-in 1.4s ease forwards 0.8s,
-    sway 6s ease-in-out 2.2s infinite alternate;
+    sway 4.5s ease-in-out 2.2s infinite alternate;
   filter: drop-shadow(0 18px 28px rgba(40, 60, 20, 0.22));
+}
+
+.flower.spin-nudge .bloom {
+  animation:
+    bloom-spin 1.2s ease,
+    bloom-breathe 5s ease-in-out 1.2s infinite alternate;
 }
 
 @keyframes flower-in {
@@ -164,11 +497,17 @@ body {
 }
 
 @keyframes sway {
-  from { transform: rotate(-2.2deg); }
-  to { transform: rotate(2.2deg); }
+  0% { transform: rotate(-3deg) translateX(-4px); }
+  50% { transform: rotate(1deg) translateX(2px); }
+  100% { transform: rotate(3.5deg) translateX(5px); }
 }
 
-/* Stem — thicker, slightly uneven like a real stalk */
+@keyframes bloom-spin {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  40% { transform: translateX(-50%) rotate(18deg) scale(1.04); }
+  100% { transform: translateX(-50%) rotate(0deg) scale(1); }
+}
+
 .stem {
   position: absolute;
   top: 42%;
@@ -202,23 +541,17 @@ body {
   }
 }
 
-/* Leaves — heart-pointed sunflower shape with midrib */
 .leaf {
   position: absolute;
   width: 78px;
   height: 48px;
-  background:
-    linear-gradient(
-      115deg,
-      #4caf50 0%,
-      #3d9a42 40%,
-      #2a6f30 100%
-    );
+  background: linear-gradient(115deg, #4caf50 0%, #3d9a42 40%, #2a6f30 100%);
   border-radius: 5% 80% 15% 80%;
   box-shadow:
     inset -4px -3px 8px rgba(0, 0, 0, 0.2),
     inset 3px 2px 6px rgba(255, 255, 255, 0.15);
   opacity: 0;
+  transform-origin: left center;
 }
 
 .leaf::before {
@@ -228,11 +561,7 @@ body {
   left: 8%;
   width: 72%;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(30, 80, 30, 0.55),
-    rgba(30, 80, 30, 0.15)
-  );
+  background: linear-gradient(90deg, rgba(30, 80, 30, 0.55), rgba(30, 80, 30, 0.15));
   border-radius: 2px;
   transform: translateY(-50%) rotate(-2deg);
 }
@@ -240,8 +569,9 @@ body {
 .leaf-left {
   top: 56%;
   left: 22%;
-  transform: rotate(-42deg) scale(0);
-  animation: leaf-left-in 0.75s cubic-bezier(0.34, 1.3, 0.64, 1) forwards 1.55s;
+  animation:
+    leaf-left-in 0.75s cubic-bezier(0.34, 1.3, 0.64, 1) forwards 1.55s,
+    leaf-flutter-l 3.2s ease-in-out 2.4s infinite alternate;
 }
 
 .leaf-right {
@@ -249,11 +579,17 @@ body {
   right: 20%;
   width: 70px;
   height: 42px;
-  transform: rotate(148deg) scale(0);
-  animation: leaf-right-in 0.75s cubic-bezier(0.34, 1.3, 0.64, 1) forwards 1.8s;
+  transform-origin: right center;
+  animation:
+    leaf-right-in 0.75s cubic-bezier(0.34, 1.3, 0.64, 1) forwards 1.8s,
+    leaf-flutter-r 2.8s ease-in-out 2.6s infinite alternate;
 }
 
 @keyframes leaf-left-in {
+  from {
+    opacity: 0;
+    transform: rotate(-42deg) scale(0);
+  }
   to {
     opacity: 1;
     transform: rotate(-42deg) scale(1);
@@ -261,13 +597,26 @@ body {
 }
 
 @keyframes leaf-right-in {
+  from {
+    opacity: 0;
+    transform: rotate(148deg) scale(0);
+  }
   to {
     opacity: 1;
     transform: rotate(148deg) scale(1);
   }
 }
 
-/* Bloom head */
+@keyframes leaf-flutter-l {
+  from { transform: rotate(-42deg) scale(1); }
+  to { transform: rotate(-52deg) scale(1); }
+}
+
+@keyframes leaf-flutter-r {
+  from { transform: rotate(148deg) scale(1); }
+  to { transform: rotate(158deg) scale(1); }
+}
+
 .bloom {
   position: absolute;
   top: -2%;
@@ -275,6 +624,13 @@ body {
   width: 100%;
   aspect-ratio: 1;
   transform: translateX(-50%);
+  transform-origin: 50% 50%;
+  animation: bloom-breathe 5s ease-in-out 3s infinite alternate;
+}
+
+@keyframes bloom-breathe {
+  from { transform: translateX(-50%) rotate(-2deg) scale(1); }
+  to { transform: translateX(-50%) rotate(3deg) scale(1.03); }
 }
 
 .petals {
@@ -282,7 +638,6 @@ body {
   inset: 0;
 }
 
-/* Ray florets — elongated, pointed tips like real sunflower petals */
 .petal {
   position: absolute;
   top: 50%;
@@ -299,7 +654,6 @@ body {
       var(--gold-mid) 62%,
       var(--gold-deep) 100%
     );
-  /* Pointed tip, wider base — like real ray florets */
   clip-path: polygon(
     50% 0%,
     86% 16%,
@@ -322,13 +676,7 @@ body {
   margin-left: -7.5%;
   height: calc(48% * var(--len, 1));
   margin-top: calc(-48% * var(--len, 1));
-  background:
-    linear-gradient(
-      180deg,
-      #e8a820 0%,
-      #d4890f 55%,
-      #b8730c 100%
-    );
+  background: linear-gradient(180deg, #e8a820 0%, #d4890f 55%, #b8730c 100%);
   z-index: 1;
   filter: brightness(0.92) saturate(1.1);
 }
@@ -348,16 +696,13 @@ body {
     opacity: 0;
     transform: rotate(var(--angle)) scaleY(0.25) scaleX(0.5);
   }
-  60% {
-    opacity: 1;
-  }
+  60% { opacity: 1; }
   100% {
     opacity: 1;
     transform: rotate(var(--angle)) scaleY(1) scaleX(1);
   }
 }
 
-/* Disk — large seeded center */
 .center {
   position: absolute;
   top: 50%;
@@ -385,7 +730,9 @@ body {
 }
 
 .center.visible {
-  animation: center-in 0.8s cubic-bezier(0.34, 1.25, 0.64, 1) forwards;
+  animation:
+    center-in 0.8s cubic-bezier(0.34, 1.25, 0.64, 1) forwards,
+    center-pulse 4s ease-in-out 2s infinite alternate;
 }
 
 .center-rim {
@@ -435,10 +782,15 @@ body {
   }
 }
 
+@keyframes center-pulse {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to { transform: translate(-50%, -50%) scale(1.04); }
+}
+
 /* ——— Message ——— */
 .message {
-  max-width: 28rem;
-  font-size: clamp(1.15rem, 3.4vw, 1.45rem);
+  max-width: 26rem;
+  font-size: clamp(1.1rem, 3.2vw, 1.4rem);
   font-weight: 400;
   font-style: italic;
   line-height: 1.55;
@@ -446,6 +798,7 @@ body {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
   opacity: 0;
   transform: translateY(16px);
+  z-index: 2;
 }
 
 .message.visible {
@@ -459,17 +812,26 @@ body {
   }
 }
 
-@media (max-width: 480px) {
-  .scene {
-    padding: 1.25rem 1rem 1.5rem;
+@media (max-width: 520px) {
+  .gift {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .portrait {
+    width: min(120px, 38vw);
+    height: min(168px, 52vw);
+    order: -1;
   }
 
   .flower {
-    height: min(360px, 52vh);
+    width: min(240px, 70vw);
+    height: min(300px, 42vh);
   }
 
-  .message {
-    line-height: 1.5;
+  .scene {
+    padding: 1rem 1rem 1.25rem;
   }
 }
 
@@ -488,7 +850,8 @@ body {
   .leaf,
   .petal,
   .center,
-  .message {
+  .message,
+  .portrait {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -499,5 +862,9 @@ body {
 
   .center {
     transform: translate(-50%, -50%) scale(1) !important;
+  }
+
+  .butterflies {
+    display: none;
   }
 }
