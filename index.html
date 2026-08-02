@@ -13,56 +13,98 @@
   <div class="sky" aria-hidden="true">
     <div class="sun-glow"></div>
     <div class="field"></div>
-    <div class="particles" id="particles"></div>
   </div>
 
-  <canvas id="butterflies" class="butterflies-canvas" aria-hidden="true"></canvas>
+  <!-- Mariposas moradas (HTML/CSS — siempre visibles) -->
+  <div class="butterflies" aria-hidden="true">
+    <span class="bf bf-1"></span>
+    <span class="bf bf-2"></span>
+    <span class="bf bf-3"></span>
+    <span class="bf bf-4"></span>
+    <span class="bf bf-5"></span>
+    <span class="bf bf-6"></span>
+    <span class="bf bf-7"></span>
+    <span class="bf bf-8"></span>
+  </div>
 
   <main class="scene">
     <p class="dedication">Para ti</p>
 
     <div class="gift">
-      <!-- Flat faceless portrait: style like the illustration, redhead traits -->
-      <div class="portrait" aria-hidden="true">
-        <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" class="portrait-svg">
-          <!-- Hair back -->
-          <ellipse cx="100" cy="128" rx="78" ry="100" fill="#9a2f18"/>
-          <path d="M28 90 C20 140 22 200 40 235 L70 220 C55 180 48 130 55 95 Z" fill="#7a2412"/>
-          <path d="M172 90 C180 140 178 200 160 235 L130 220 C145 180 152 130 145 95 Z" fill="#7a2412"/>
+      <div class="portrait" id="portrait" aria-hidden="true">
+        <svg class="portrait-svg" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hairShade" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#e87040"/>
+              <stop offset="45%" stop-color="#c44722"/>
+              <stop offset="100%" stop-color="#8a2a14"/>
+            </linearGradient>
+            <linearGradient id="hairDeep" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#b83a1c"/>
+              <stop offset="100%" stop-color="#6e1f0e"/>
+            </linearGradient>
+            <linearGradient id="skinGrad" x1="0.3" y1="0" x2="0.7" y2="1">
+              <stop offset="0%" stop-color="#f6d7c6"/>
+              <stop offset="100%" stop-color="#ebc0a8"/>
+            </linearGradient>
+          </defs>
 
-          <!-- Shoulders / top -->
-          <path d="M35 195 Q100 175 165 195 L175 260 L25 260 Z" fill="#f7f4f0"/>
-          <path d="M55 200 Q100 185 145 200" fill="none" stroke="#e8e0d8" stroke-width="3" stroke-linecap="round"/>
-          <!-- Pearl trim -->
-          <circle cx="72" cy="198" r="2.2" fill="#fff"/>
-          <circle cx="82" cy="194" r="2.2" fill="#fff"/>
-          <circle cx="92" cy="192" r="2.2" fill="#fff"/>
-          <circle cx="100" cy="191" r="2.2" fill="#fff"/>
-          <circle cx="108" cy="192" r="2.2" fill="#fff"/>
-          <circle cx="118" cy="194" r="2.2" fill="#fff"/>
-          <circle cx="128" cy="198" r="2.2" fill="#fff"/>
+          <!-- Hair mass behind (volume like reference) -->
+          <ellipse cx="120" cy="145" rx="92" ry="115" fill="url(#hairDeep)"/>
+          <path d="M30 95 C18 160 28 230 55 275 L95 250 C70 200 60 145 68 100 Z" fill="#7a2412"/>
+          <path d="M210 95 C222 160 212 230 185 275 L145 250 C170 200 180 145 172 100 Z" fill="#7a2412"/>
+
+          <!-- White top -->
+          <path d="M42 210 C80 188 160 188 198 210 L210 300 L30 300 Z" fill="#f8f5f1"/>
+          <path d="M70 214 C100 200 140 200 170 214" fill="none" stroke="#ddd5cc" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="78" cy="212" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
+          <circle cx="90" cy="207" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
+          <circle cx="102" cy="204" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
+          <circle cx="114" cy="202" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
+          <circle cx="126" cy="202" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
+          <circle cx="138" cy="204" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
+          <circle cx="150" cy="207" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
+          <circle cx="162" cy="212" r="2" fill="#fff" stroke="#e5ddd4" stroke-width="0.5"/>
 
           <!-- Neck -->
-          <rect x="88" y="155" width="24" height="28" rx="8" fill="#f0c9b5"/>
+          <path d="M105 170 Q120 168 135 170 L138 215 Q120 222 102 215 Z" fill="#ebc0a8"/>
 
-          <!-- Face (featureless) -->
-          <ellipse cx="100" cy="105" rx="42" ry="50" fill="#f3d0bd"/>
+          <!-- Face — blank oval -->
+          <ellipse cx="120" cy="118" rx="48" ry="56" fill="url(#skinGrad)"/>
 
-          <!-- Soft cheek tint only — no features -->
-          <ellipse cx="78" cy="118" rx="8" ry="5" fill="#e8a898" opacity="0.35"/>
-          <ellipse cx="122" cy="118" rx="8" ry="5" fill="#e8a898" opacity="0.35"/>
+          <!-- Soft blush only -->
+          <ellipse cx="92" cy="132" rx="10" ry="6" fill="#e8a090" opacity="0.28"/>
+          <ellipse cx="148" cy="132" rx="10" ry="6" fill="#e8a090" opacity="0.28"/>
 
-          <!-- Hair front / bangs — wavy copper -->
-          <path d="M55 70 C60 40 85 28 100 30 C115 28 140 40 145 70
-                   C148 55 130 48 100 52 C70 48 52 55 55 70 Z" fill="#c44522"/>
-          <path d="M48 75 C42 110 38 150 45 195 C55 175 62 140 65 100 C66 85 58 78 48 75 Z" fill="#d4552e"/>
-          <path d="M152 75 C158 110 162 150 155 195 C145 175 138 140 135 100 C134 85 142 78 152 75 Z" fill="#d4552e"/>
-          <path d="M62 55 C70 48 85 58 88 78 C75 70 65 65 62 55 Z" fill="#e06a3a"/>
-          <path d="M138 55 C130 48 115 58 112 78 C125 70 135 65 138 55 Z" fill="#e06a3a"/>
+          <!-- Crown / part (side part like reference) -->
+          <path d="M72 78 C85 42 110 32 128 34 C155 38 175 58 178 88
+                   C165 62 140 55 120 58 C95 55 78 65 72 78 Z" fill="url(#hairShade)"/>
 
-          <!-- Front shoulder locks -->
-          <path d="M58 100 C50 145 52 185 68 215 C72 190 74 150 78 115 C75 105 65 100 58 100 Z" fill="#b83a1c"/>
-          <path d="M142 100 C150 145 148 185 132 215 C128 190 126 150 122 115 C125 105 135 100 142 100 Z" fill="#b83a1c"/>
+          <!-- Side locks framing face (flowing, not triangles) -->
+          <path d="M70 85 C55 130 48 175 58 230 C68 245 82 235 86 210
+                   C90 170 92 130 95 100 C90 88 80 84 70 85 Z" fill="#d4552e"/>
+          <path d="M170 85 C185 130 192 175 182 230 C172 245 158 235 154 210
+                   C150 170 148 130 145 100 C150 88 160 84 170 85 Z" fill="#d4552e"/>
+
+          <!-- Inner softer strands over shoulders -->
+          <path d="M78 100 C70 150 72 195 88 235 C96 220 100 175 102 130
+                   C100 110 88 102 78 100 Z" fill="#e06a3a"/>
+          <path d="M162 100 C170 150 168 195 152 235 C144 220 140 175 138 130
+                   C140 110 152 102 162 100 Z" fill="#e06a3a"/>
+
+          <!-- Fine strand lines (illustration texture) -->
+          <g fill="none" stroke="#8a2a14" stroke-width="0.7" opacity="0.35" stroke-linecap="round">
+            <path d="M95 55 C90 90 88 130 92 170"/>
+            <path d="M110 48 C108 95 106 140 110 185"/>
+            <path d="M130 48 C132 95 134 140 130 185"/>
+            <path d="M145 55 C150 90 152 130 148 170"/>
+            <path d="M75 110 C68 150 70 190 80 220"/>
+            <path d="M165 110 C172 150 170 190 160 220"/>
+          </g>
+
+          <!-- Soft bangs fall -->
+          <path d="M88 70 C95 78 105 82 112 95 C108 78 98 72 88 70 Z" fill="#e87040" opacity="0.85"/>
+          <path d="M152 70 C145 78 135 82 128 95 C132 78 142 72 152 70 Z" fill="#e87040" opacity="0.85"/>
         </svg>
       </div>
 
@@ -82,7 +124,7 @@
       </div>
     </div>
 
-    <p class="message">
+    <p class="message" id="message">
       Un regalo para ti con todo mi cariño y amor
       para la niña de la que estoy más orgulloso en el mundo.
     </p>
