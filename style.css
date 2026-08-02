@@ -191,29 +191,75 @@ body {
   max-width: 640px;
 }
 
-/* ——— Portrait ——— */
+/* ——— Portrait (simple, one silhouette) ——— */
 .portrait {
-  width: min(180px, 40vw);
-  height: min(225px, 50vw);
+  width: min(168px, 38vw);
+  height: min(220px, 50vw);
   flex-shrink: 0;
   opacity: 0;
   transform: translateY(18px);
-  filter: drop-shadow(0 12px 20px rgba(50, 30, 20, 0.2));
+  filter: drop-shadow(0 14px 22px rgba(50, 30, 20, 0.18));
 }
 
 .portrait.visible {
   animation: fade-up 1.1s ease forwards;
 }
 
-.portrait.visible .portrait-svg {
-  animation: soft-sway 5s ease-in-out 1.2s infinite alternate;
+.portrait.visible .p-figure {
+  animation: soft-sway 5.5s ease-in-out 1.2s infinite alternate;
 }
 
-.portrait-svg {
+.p-figure {
+  position: relative;
   width: 100%;
   height: 100%;
-  display: block;
-  transform-origin: 50% 85%;
+  transform-origin: 50% 90%;
+}
+
+/* One soft hair mass — same color, no layers fighting */
+.p-hair {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  width: 88%;
+  height: 86%;
+  transform: translateX(-50%);
+  background: #c94b2a;
+  border-radius: 48% 48% 42% 42% / 30% 30% 58% 58%;
+}
+
+/* Face window carved visually on top of hair */
+.p-face {
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  width: 40%;
+  height: 36%;
+  transform: translateX(-50%);
+  background: #f2d0bd;
+  border-radius: 50%;
+}
+
+.p-neck {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: 14%;
+  height: 14%;
+  transform: translateX(-50%);
+  background: #ecc0ab;
+  border-radius: 0 0 40% 40%;
+}
+
+.p-body {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 78%;
+  height: 36%;
+  transform: translateX(-50%);
+  background: #f7f4f0;
+  border-radius: 48% 48% 18% 18% / 55% 55% 20% 20%;
 }
 
 /* ——— Flower ——— */
@@ -476,8 +522,8 @@ body {
   }
 
   .portrait {
-    width: min(150px, 46vw);
-    height: min(188px, 58vw);
+    width: min(140px, 44vw);
+    height: min(184px, 56vw);
     order: -1;
   }
 
