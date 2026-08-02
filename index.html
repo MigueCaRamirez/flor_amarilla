@@ -2,21 +2,41 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>🌻 Para ti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para ti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="flower">
-    <div class="petals"></div>
-    <div class="center"></div>
-    <div class="stem"></div>
-    <div class="leaves">
-      <div class="leaf"></div>
-      <div class="leaf"></div>
-    </div>
+  <div class="sky" aria-hidden="true">
+    <div class="sun-glow"></div>
+    <div class="field"></div>
+    <div class="particles" id="particles"></div>
   </div>
-  <div class="message">Feliz día, un girasol como flor amarilla para ti, se que no es mucho, pero queria darte algo con todo mi cariño, estoy orgulloso de ti y espero que todo te salga bien</div>
 
+  <main class="scene">
+    <p class="dedication">Para ti</p>
+
+    <div class="flower" aria-hidden="true">
+      <div class="stem"></div>
+      <div class="leaf leaf-left"></div>
+      <div class="leaf leaf-right"></div>
+      <div class="bloom">
+        <div class="petals"></div>
+        <div class="center">
+          <div class="center-texture"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="message">
+      Feliz día. Un girasol como flor amarilla para ti.
+      Sé que no es mucho, pero quería darte algo con todo mi cariño.
+      Estoy orgulloso de ti, y espero que todo te salga bien.
+    </p>
+  </main>
 
   <script src="script.js"></script>
 </body>
