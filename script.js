@@ -1,23 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const petalsContainer = document.querySelector(".petals");
+  const backContainer = document.getElementById("petals-back");
+  const frontContainer = document.getElementById("petals-front");
+  const seedsContainer = document.getElementById("center-seeds");
   const center = document.querySelector(".center");
   const message = document.querySelector(".message");
   const particles = document.getElementById("particles");
-  const totalPetals = 18;
-  const petalDelay = 90;
 
-  for (let i = 0; i < totalPetals; i++) {
-    const petal = document.createElement("div");
-    petal.classList.add("petal");
-    petal.style.setProperty("--angle", `${(360 / totalPetals) * i}deg`);
-    petalsContainer.appendChild(petal);
+  const backCount = 22;
+  const frontCount = 20;
+  const petalDelay = 55;
+
+  function createPetals(container, count, layerClass, angleOffset = 0) {
+    for (let i = 0; i < count; i++) {
+      const petal = document.createElement("div");
+      petal.classList.add("petal", layerClass);
+      const angle = (360 / count) * i + angleOffset;
+      // Slight natural variation in length
+      const lengthScale = 0.92 + Math.random() * 0.14;
+      petal.style.setProperty("--angle", `${angle}deg`);
+      petal.style.setProperty("--len", lengthScale.toFixed(3));
+      container.appendChild(petal);
+    }
   }
 
-  const petals = document.querySelectorAll(".petal");
+  createPetals(backContainer, backCount, "petal-back", 0);
+  createPetals(frontContainer, frontCount, "petal-front", 360 / frontCount / 2);
+
+  // Fibonacci spiral of disk florets (seeds)
+  const seedCount = 160;
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // ~137.5°
+  for (let i = 0; i < seedCount; i++) {
+    const seed = document.createElement("span");
+    seed.classList.add("seed");
+    const t = i / seedCount;
+    const radius = Math.sqrt(t) * 46; // % from center
+    const theta = i * goldenAngle;
+    const x = 50 + radius * Math.cos(theta);
+    const y = 50 + radius * Math.sin(theta);
+    const size = 2.2 + t * 2.4;
+    seed.style.left = `${x}%`;
+    seed.style.top = `${y}%`;
+    seed.style.width = `${size}px`;
+    seed.style.height = `${size * 0.85}px`;
+    seed.style.setProperty("--rot", `${(theta * 180) / Math.PI}deg`);
+    // Outer ring darker / more green-brown; inner warmer
+    const warmth = Math.floor(40 + t * 50);
+    seed.style.background = `radial-gradient(circle at 30% 30%,
+      hsl(32, 55%, ${48 - warmth * 0.15}%),
+      hsl(28, 60%, ${22 + (1 - t) * 10}%))`;
+    seedsContainer.appendChild(seed);
+  }
 
   // Soft floating light particles
-  const particleCount = 22;
-  for (let i = 0; i < particleCount; i++) {
+  for (let i = 0; i < 22; i++) {
     const p = document.createElement("span");
     p.classList.add("particle");
     p.style.left = `${Math.random() * 100}%`;
@@ -28,21 +63,25 @@ document.addEventListener("DOMContentLoaded", () => {
     particles.appendChild(p);
   }
 
-  // Bloom petals one by one
+  const allPetals = [
+    ...backContainer.querySelectorAll(".petal"),
+    ...frontContainer.querySelectorAll(".petal"),
+  ];
+
   const bloomStart = 1400;
-  petals.forEach((petal, index) => {
+
+  // Bloom outer layer first, then inner — like a real opening
+  allPetals.forEach((petal, index) => {
     setTimeout(() => {
       petal.classList.add("visible");
     }, bloomStart + petalDelay * index);
   });
 
-  // Center appears mid-bloom
   setTimeout(() => {
     center.classList.add("visible");
-  }, bloomStart + petalDelay * 8);
+  }, bloomStart + petalDelay * 10);
 
-  // Dedication message after the flower opens
   setTimeout(() => {
     message.classList.add("visible");
-  }, bloomStart + petalDelay * totalPetals + 500);
+  }, bloomStart + petalDelay * allPetals.length + 400);
 });
